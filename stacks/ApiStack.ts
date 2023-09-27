@@ -1,13 +1,15 @@
 import { Api, StackContext, use } from "sst/constructs";
 import { StorageStack } from "./StorageStack";
+import { EventStack } from "./EventStack";
 
 export function ApiStack({ stack }: StackContext) {
   const { eventStoreTable } = use(StorageStack);
+  const { eventBus } = use(EventStack);
 
   const api = new Api(stack, "Api", {
     defaults: {
       function: {
-        bind: [eventStoreTable],
+        bind: [eventStoreTable, eventBus],
       },
     },
     routes: {
