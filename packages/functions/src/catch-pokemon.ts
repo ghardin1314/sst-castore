@@ -3,10 +3,7 @@ import {
   catchPokemonCommand,
   catchPokemonInputSchema,
 } from "@sst-castore/core/commands/catch-pokemon";
-import {
-  pokemonEventStore,
-  trainersEventStore,
-} from "@sst-castore/core/resources/db";
+import { pokemonEventStore, trainersEventStore } from "src/resources/db";
 
 export const handler = async (event: APIGatewayProxyEvent) => {
   const input = catchPokemonInputSchema.parse(JSON.parse(event.body!));

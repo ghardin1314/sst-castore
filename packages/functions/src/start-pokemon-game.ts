@@ -4,12 +4,11 @@ import {
   startGameCommand,
   startGameInputSchema,
 } from "@sst-castore/core/commands/start-pokemon-game";
-import { trainersEventStore } from "@sst-castore/core/resources/db";
+import { trainersEventStore } from "src/resources/db";
 
 export const handler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
-
   const input = startGameInputSchema.parse(JSON.parse(event.body!));
   const { trainerId } = await startGameCommand.handler(
     input,

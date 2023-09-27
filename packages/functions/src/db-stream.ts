@@ -1,4 +1,4 @@
-import { appMessageBus } from "@sst-castore/core/resources/event-bus";
+import { appMessageBus } from "src/resources/event-bus";
 import { DynamoDBStreamEvent } from "aws-lambda";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
 import { AttributeValue } from "@aws-sdk/client-dynamodb";

@@ -2,7 +2,7 @@ import {
   levelUpPokemonCommand,
   levelUpPokemonInputSchema,
 } from "@sst-castore/core/commands/level-up-pokemon";
-import { pokemonEventStore } from "@sst-castore/core/resources/db";
+import { pokemonEventStore } from "src/resources/db";
 import { APIGatewayProxyEvent } from "aws-lambda";
 
 export const handler = async (event: APIGatewayProxyEvent) => {

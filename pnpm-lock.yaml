@@ -26,21 +26,9 @@ importers:
 
   packages/core:
     dependencies:
-      '@aws-sdk/client-dynamodb':
-        specifier: ^3.420.0
-        version: 3.420.0
-      '@aws-sdk/client-eventbridge':
-        specifier: ^3.418.0
-        version: 3.418.0
       '@castore/core':
         specifier: ^1.25.2
         version: 1.25.2
-      '@castore/dynamodb-event-storage-adapter':
-        specifier: ^1.25.2
-        version: 1.25.2(@aws-sdk/client-dynamodb@3.420.0)(@castore/core@1.25.2)
-      '@castore/event-bridge-message-bus-adapter':
-        specifier: ^1.25.2
-        version: 1.25.2(@aws-sdk/client-eventbridge@3.418.0)(@castore/core@1.25.2)
       '@castore/zod-event':
         specifier: ^1.25.2
         version: 1.25.2(@castore/core@1.25.2)(zod@3.22.2)
@@ -63,12 +51,18 @@ importers:
       '@aws-sdk/client-dynamodb':
         specifier: ^3.420.0
         version: 3.420.0
+      '@aws-sdk/client-eventbridge':
+        specifier: ^3.418.0
+        version: 3.418.0
       '@aws-sdk/util-dynamodb':
         specifier: ^3.421.0
         version: 3.421.0(@aws-sdk/client-dynamodb@3.420.0)
       '@castore/core':
         specifier: ^1.25.2
         version: 1.25.2
+      '@castore/dynamodb-event-storage-adapter':
+        specifier: ^1.25.2
+        version: 1.25.2(@aws-sdk/client-dynamodb@3.420.0)(@castore/core@1.25.2)
       '@castore/event-bridge-message-bus-adapter':
         specifier: ^1.25.2
         version: 1.25.2(@aws-sdk/client-eventbridge@3.418.0)(@castore/core@1.25.2)
@@ -1316,16 +1310,6 @@ packages:
       tslib: 2.6.2
     dev: true
 
-  /@aws-sdk/util-dynamodb@3.420.0(@aws-sdk/client-dynamodb@3.420.0):
-    resolution: {integrity: sha512-eDD0HZoNUXiZIsoxDG7nimOFqijMPngZGOA1vU9v43xsQlAvpezkYk8IcXO3vuUqgW7LEhMkJcKWSpXqIfYcrg==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      '@aws-sdk/client-dynamodb': ^3.0.0
-    dependencies:
-      '@aws-sdk/client-dynamodb': 3.420.0
-      tslib: 2.6.2
-    dev: false
-
   /@aws-sdk/util-dynamodb@3.421.0(@aws-sdk/client-dynamodb@3.420.0):
     resolution: {integrity: sha512-fCoBv8bX9ruvbxQMH0Flws3cqCjpgUQp8So0J2wwPaLEu6JoXlP1enppYEbjas4nuav9vCocORr+s+kdePw5Kg==}
     engines: {node: '>=14.0.0'}
@@ -1614,7 +1598,7 @@ packages:
       '@castore/core': ^1.0.0
     dependencies:
       '@aws-sdk/client-dynamodb': 3.420.0
-      '@aws-sdk/util-dynamodb': 3.420.0(@aws-sdk/client-dynamodb@3.420.0)
+      '@aws-sdk/util-dynamodb': 3.421.0(@aws-sdk/client-dynamodb@3.420.0)
       '@castore/core': 1.25.2
     dev: false
 

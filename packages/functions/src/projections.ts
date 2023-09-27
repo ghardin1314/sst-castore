@@ -1,10 +1,9 @@
 import type { EventBridgeMessageBusMessage } from "@castore/event-bridge-message-bus-adapter";
-import { appMessageBus } from "@sst-castore/core/resources/event-bus";
+import { appMessageBus } from "src/resources/event-bus";
 
 export const handler = async (
   message: EventBridgeMessageBusMessage<typeof appMessageBus>
 ) => {
-	
   /** @todo Write Projections to read db (sql, mongo, etc) */
   switch (message.source) {
     case "TRAINERS":

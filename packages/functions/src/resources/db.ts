@@ -2,8 +2,8 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDbSingleTableEventStorageAdapter } from "@castore/dynamodb-event-storage-adapter";
 import { Table } from "sst/node/table";
 
-import { pokemonEventStore as $pokemonEventStore } from "../pokemon";
-import { trainersEventStore as $trainersEventStore } from "../trainers";
+import { pokemonEventStore as $pokemonEventStore } from "@sst-castore/core/pokemon";
+import { trainersEventStore as $trainersEventStore } from "@sst-castore/core/trainers";
 
 export const dynamoDbClient = new DynamoDBClient({});
 

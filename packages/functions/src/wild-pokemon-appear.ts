@@ -4,7 +4,7 @@ import {
   wildPokemonAppearCommand,
   wildPokemonAppearInputSchema,
 } from "@sst-castore/core/commands/wild-pokemon-appear";
-import { pokemonEventStore } from "@sst-castore/core/resources/db";
+import { pokemonEventStore } from "src/resources/db";
 
 export const handler = async (event: APIGatewayProxyEvent) => {
   const input = wildPokemonAppearInputSchema.parse(JSON.parse(event.body!));
