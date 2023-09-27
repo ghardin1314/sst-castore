@@ -3,9 +3,7 @@ import { EventBridgeClient } from "@aws-sdk/client-eventbridge";
 import { EventBridgeMessageBusAdapter } from "@castore/event-bridge-message-bus-adapter";
 
 import { EventBus } from "sst/node/event-bus";
-
-import { pokemonEventStore } from "../pokemon";
-import { trainersEventStore } from "../trainers";
+import { pokemonEventStore, trainersEventStore } from "./db";
 
 const eventBridgeClient = new EventBridgeClient({});
 
@@ -19,4 +17,3 @@ export const appMessageBus = new StateCarryingMessageBus({
   sourceEventStores: [pokemonEventStore, trainersEventStore],
   messageBusAdapter,
 });
-

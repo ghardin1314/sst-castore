@@ -1,4 +1,4 @@
-import { StackContext, Table, TableProps, use } from "sst/constructs";
+import { StackContext, Table, use } from "sst/constructs";
 import { EventStack } from "./EventStack";
 
 export function StorageStack({ stack }: StackContext) {
@@ -22,7 +22,7 @@ export function StorageStack({ stack }: StackContext) {
         projection: "keys_only",
       },
     },
-    stream: true, // only care about new_image but isnt invoking handler
+    stream: "new_image",
   });
 
   eventStoreTable.addConsumers(stack, {

@@ -1,59 +1,30 @@
-import {
-  pokemonEventStore,
-  trainersEventStore,
-} from "@sst-castore/core/resources/db";
 import { appMessageBus } from "@sst-castore/core/resources/event-bus";
 import { DynamoDBStreamEvent } from "aws-lambda";
+import { unmarshall } from "@aws-sdk/util-dynamodb";
+import { AttributeValue } from "@aws-sdk/client-dynamodb";
 
 export const handler = async (event: DynamoDBStreamEvent) => {
   for (const record of event.Records) {
-    console.log(JSON.stringify(record.dynamodb?.NewImage, null, 2));
+    if (!record.dynamodb?.NewImage) continue;
 
-    const img = record.dynamodb?.NewImage;
+    const event = unmarshall(
+      record.dynamodb.NewImage as Record<string, AttributeValue>
+    );
 
-    const eventStoreId = img?.eventStoreId.S as "POKEMONS" | "TRAINERS";
-    const eventType = img?.type.S;
-    const aggregateId = img?.aggregateId.S?.replace(`${eventStoreId}#`, "");
-    const version = Number(img?.version.N);
+    const [eventStoreId, aggregateId] = event.aggregateId.split("#");
 
-    let aggregate, lastEvent;
+    const version = event.version;
 
-    switch (eventStoreId) {
-      case "TRAINERS":
-        ({ aggregate, lastEvent } = await trainersEventStore.getAggregate(
-          aggregateId as string,
-          { maxVersion: version }
-        ));
-        if (!aggregate || !lastEvent) break;
-        appMessageBus.getAggregateAndPublishMessage({
-          eventStoreId,
-          event: lastEvent,
-        });
-        await appMessageBus.publishMessage({
-          eventStoreId,
-          event: lastEvent,
-          aggregate,
-        });
-        break;
-      case "POKEMONS": {
-        ({ aggregate, lastEvent } = await pokemonEventStore.getAggregate(
-          aggregateId as string,
-          { maxVersion: version }
-        ));
-        if (!aggregate || !lastEvent) break;
-        await appMessageBus.publishMessage({
-          eventStoreId,
-          event: lastEvent,
-          aggregate,
-        });
-        break;
-      }
-      default:
-        break;
-    }
-
-    console.log({ aggregate, lastEvent });
-
-    if (!eventStoreId || !eventType || !aggregate || !lastEvent) continue;
+    await appMessageBus.getAggregateAndPublishMessage({
+      eventStoreId,
+      event: {
+        aggregateId,
+        type: event.type,
+        version,
+        payload: event.payload,
+        metadata: event.metadata,
+        timestamp: event.timestamp,
+      },
+    });
   }
 };
