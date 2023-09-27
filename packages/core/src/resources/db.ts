@@ -14,14 +14,17 @@ const storageAdapter = new DynamoDbSingleTableEventStorageAdapter({
   dynamoDbClient,
 });
 
-export const pokemonEventStore = new ConnectedEventStore(
-  $pokemonEventStore,
-  appMessageBus
-);
-export const trainersEventStore = new ConnectedEventStore(
-  $trainersEventStore,
-  appMessageBus
-);
+// export const pokemonEventStore = new ConnectedEventStore(
+//   $pokemonEventStore,
+//   appMessageBus
+// );
+// export const trainersEventStore = new ConnectedEventStore(
+//   $trainersEventStore,
+//   appMessageBus
+// );
+
+export const pokemonEventStore = $pokemonEventStore;
+export const trainersEventStore = $trainersEventStore;
 
 pokemonEventStore.storageAdapter = storageAdapter;
 trainersEventStore.storageAdapter = storageAdapter;

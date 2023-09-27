@@ -9,7 +9,6 @@ import { trainersEventStore } from "@sst-castore/core/resources/db";
 export const handler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
-  console.log({ event });
 
   const input = startGameInputSchema.parse(JSON.parse(event.body!));
   const { trainerId } = await startGameCommand.handler(
@@ -19,8 +18,6 @@ export const handler = async (
       generateUuid: randomUUID,
     }
   );
-
-  console.log({ trainerId });
 
   return {
     statusCode: 200,
