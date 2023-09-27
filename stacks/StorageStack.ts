@@ -31,7 +31,7 @@ export function StorageStack({ stack }: StackContext) {
         handler: "packages/functions/src/db-stream.handler",
         bind: [eventBus, eventStoreTable],
         retryAttempts: 3,
-        // deadLetterQueue: true // Need to configure
+        deadLetterQueueEnabled: true,
       },
     },
   });
